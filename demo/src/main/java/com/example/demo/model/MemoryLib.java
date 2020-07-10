@@ -1,4 +1,4 @@
-package com.example.springboot.model;
+package com.example.demo.model;
 
 
 import org.hibernate.annotations.Generated;

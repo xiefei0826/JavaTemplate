@@ -1,8 +1,8 @@
-package com.example.springboot.api;
+package com.example.demo.api;
 
-import com.example.springboot.ado.repository.MemoryLibRepository;
-import com.example.springboot.model.MemoryLib;
-import com.example.springboot.model.StatusType;
+import com.example.demo.repository.MemoryLibRepository;
+import com.example.demo.model.MemoryLib;
+import com.example.demo.model.StatusType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
