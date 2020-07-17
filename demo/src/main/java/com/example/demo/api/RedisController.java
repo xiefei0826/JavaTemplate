@@ -1,5 +1,6 @@
 package com.example.demo.api;
 
+import com.example.demo.config.Test;
 import org.apache.juli.logging.LogFactory;
 import org.slf4j.ILoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/redis")
 public class RedisController {
+    @Autowired
+    private Test test;
     private final RedisTemplate<Object, Object> redisTemplate;
     private final StringRedisTemplate stringRedisTemplate;
     private static Logger logger = Logger.getLogger(RedisController.class.getName());
@@ -29,6 +32,7 @@ public class RedisController {
 
     @GetMapping("/test")
     public String Test() {
+        logger.info(test.getA());
         redisTemplate.opsForValue().set("key1", "value1");
 
         return redisTemplate.opsForValue().get("key1").toString();
@@ -73,5 +77,14 @@ public class RedisController {
         hashOperations.put("filed4", "value4");
 
         return hashOperations.entries();
+    }
+
+    @GetMapping("/set")
+    public Map<String, Object> testSet() {
+
+        stringRedisTemplate.opsForSet().add("set1", "v1", "v1", "v2", "v3", "v4", "v5");
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        return map;
     }
 }
