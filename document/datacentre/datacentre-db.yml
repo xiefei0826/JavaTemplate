@@ -59,7 +59,7 @@ spec:
   selector:
     app: db
   ports:
-    - port: 80
+    - port: 3306
       targetPort: 3306
   type: NodePort
 
@@ -73,6 +73,6 @@ spec:
   selector:
     app: db
   ports:
-    - port: 80
+    - port: 9200
       targetPort: 9200
   type: NodePort
