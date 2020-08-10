@@ -3,6 +3,5 @@ server:
 spring:
   profiles:
     active: dev
-test:
-  a: b
+
 

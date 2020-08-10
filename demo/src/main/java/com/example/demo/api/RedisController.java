@@ -1,9 +1,6 @@
 package com.example.demo.api;
 
-import com.example.demo.config.Test;
-import org.apache.juli.logging.LogFactory;
-import org.slf4j.ILoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.*;
@@ -11,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -19,8 +15,7 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/redis")
 public class RedisController {
-    @Autowired
-    private Test test;
+
     private final RedisTemplate<Object, Object> redisTemplate;
     private final StringRedisTemplate stringRedisTemplate;
     private static Logger logger = Logger.getLogger(RedisController.class.getName());
@@ -32,7 +27,6 @@ public class RedisController {
 
     @GetMapping("/test")
     public String Test() {
-        logger.info(test.getA());
         redisTemplate.opsForValue().set("key1", "value1");
 
         return redisTemplate.opsForValue().get("key1").toString();
