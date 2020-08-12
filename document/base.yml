@@ -1,0 +1,249 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-mysql-pv
+spec:
+  capacity:
+    storage: 10Gi
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/mysql
+    type: DirectoryOrCreate
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-mysql-pvc
+spec:
+  resources:
+    requests:
+      storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: data-mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  serviceName: mysql
+  template:
+    metadata:
+      name: mysql
+      labels:
+        app: mysql
+    spec:
+      volumes:
+        - name: data-mysql
+          persistentVolumeClaim:
+            claimName: data-mysql-pvc
+      containers:
+        - name: mysql
+          image: mysql:8.0.21
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: example2020!@#
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: data-mysql
+          args:
+            - '--character-set-server=utf8mb4'
+            - '--collation-server=utf8mb4_unicode_ci'
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+            requests:
+              cpu: "0.5"
+              memory: "200Mi"
+      hostname: mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-mysql
+spec:
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+      nodePort: 31001
+  type: NodePort
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-redis-pv
+spec:
+  capacity:
+    storage: 1G
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/redis
+    type: DirectoryOrCreate
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-redis-pvc
+spec:
+  resources:
+    requests:
+      storage: 1G
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: data-redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  serviceName: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      volumes:
+        - name: data-redis
+          persistentVolumeClaim:
+            claimName: data-redis-pvc
+      containers:
+        - name: redis
+          image: selfredis:6.0.6
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: data-redis
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+            requests:
+              cpu: "0.5"
+              memory: "200Mi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-redis
+spec:
+  selector:
+    app: redis
+  ports:
+    - port: 6379
+      nodePort: 31002
+  type: NodePort
+
+---
+
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-es-pv
+spec:
+  capacity:
+    storage: 1G
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/es
+    type: DirectoryOrCreate
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-es-pvc
+spec:
+  resources:
+    requests:
+      storage: 1G
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: data-es
+spec:
+  selector:
+    matchLabels:
+      app: es
+  serviceName: es
+  template:
+    metadata:
+      labels:
+        app: es
+    spec:
+      volumes:
+        - name: data-es
+          persistentVolumeClaim:
+            claimName: data-es-pvc
+      containers:
+        - name: es
+          image: elasticsearch:7.8.1
+          ports:
+            - containerPort: 9200
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              name: data-es
+          env:
+            - name: discovery.type
+              value: single-node
+            - name: xpack.security.enabled
+              value: "true"
+            - name: ELASTICSEARCH_PASSWORD
+              value: example2020!@#
+            - name: ELASTICSEARCH_USERNAME
+              value: root
+          resources:
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+            requests:
+              cpu: "0.5"
+              memory: "500Mi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-es
+spec:
+  selector:
+    app: es
+  ports:
+    - port: 9200
+      nodePort: 31003
+  type: NodePort
