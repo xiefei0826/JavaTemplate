@@ -6,9 +6,9 @@ spec:
   capacity:
     storage: 10Gi
   persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: /data/mysql
-    type: DirectoryOrCreate
+  nfs:
+    path: /nas/data/mysql
+    server: 192.168.2.109
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -77,8 +77,9 @@ spec:
     app: mysql
   ports:
     - port: 3306
-      nodePort: 31001
   type: NodePort
+  externalIPs:
+    - 192.168.2.109
 
 ---
 
@@ -90,9 +91,9 @@ spec:
   capacity:
     storage: 1G
   persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: /data/redis
-    type: DirectoryOrCreate
+  nfs:
+    path: /nas/data/redis
+    server: 192.168.2.109
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -156,8 +157,9 @@ spec:
     app: redis
   ports:
     - port: 6379
-      nodePort: 31002
   type: NodePort
+  externalIPs:
+    - 192.168.2.109
 
 ---
 
@@ -170,9 +172,9 @@ spec:
   capacity:
     storage: 1G
   persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: /data/es
-    type: DirectoryOrCreate
+  nfs:
+    path: /nas/data/es
+    server: 192.168.2.109
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -245,5 +247,7 @@ spec:
     app: es
   ports:
     - port: 9200
-      nodePort: 31003
   type: NodePort
+  externalIPs:
+    - 192.168.2.109
+
