@@ -225,10 +225,6 @@ spec:
               value: single-node
             - name: xpack.security.enabled
               value: "true"
-            - name: ELASTICSEARCH_PASSWORD
-              value: example2020!@#
-            - name: ELASTICSEARCH_USERNAME
-              value: root
           resources:
             limits:
               cpu: "1"
@@ -250,4 +246,49 @@ spec:
   type: NodePort
   externalIPs:
     - 192.168.2.109
+---
 
+#
+#apiVersion: apps/v1
+#kind: StatefulSet
+#metadata:
+#  name: kibana
+#spec:
+#  selector:
+#    matchLabels:
+#      app: kibana
+#  serviceName: kibana
+#  template:
+#    metadata:
+#      name: kibana
+#      labels:
+#        app: kibana
+#    spec:
+#      containers:
+#        - name: kibana
+#          image: kibana:7.8.1
+#          ports:
+#            - containerPort: 5601
+#          env:
+#            - name: server.name
+#              value: kibana
+#            - name: elasticsearch.hosts
+#              value: http://data-es:9200
+#            - name: elasticsearch.username
+#              value: elastic
+#            - name: elasticsearch.password
+#              value: example2020!@#
+#---
+#
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: kibana
+#spec:
+#  selector:
+#    app: kibana
+#  ports:
+#    - port: 5601
+#  type: NodePort
+#  externalIPs:
+#    - 192.168.2.109
