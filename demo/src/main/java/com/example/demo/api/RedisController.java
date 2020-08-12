@@ -8,7 +8,6 @@ import org.springframework.data.redis.core.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.w3c.dom.ranges.Range;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -144,32 +143,41 @@ public class RedisController {
             typeTupleSet.add(typedTuple);
         }
         stringRedisTemplate.opsForZSet().add("zset1", typeTupleSet);
-        BoundZSetOperations zsetOps=stringRedisTemplate.boundZSetOps("zset1");
+        BoundZSetOperations zsetOps = stringRedisTemplate.boundZSetOps("zset1");
 
-        zsetOps.add("value10",0.26);
-        Set<String> setRange=zsetOps.range(1,6);
+        zsetOps.add("value10", 0.26);
+        Set<String> setRange = zsetOps.range(1, 6);
 
-        setRange.forEach(p->logger.info("setRange:"+p));
-        Set<String> setScore=zsetOps.rangeByScore(0.2,0.6);
+        setRange.forEach(p -> logger.info("setRange:" + p));
+        Set<String> setScore = zsetOps.rangeByScore(0.2, 0.6);
 
-        RedisZSetCommands.Range range=  new RedisZSetCommands.Range();
+        RedisZSetCommands.Range range = new RedisZSetCommands.Range();
 
         range.gt("value3");
         range.lte("value8");
 
-        Set<String> setLex=zsetOps.rangeByLex(range);
+        Set<String> setLex = zsetOps.rangeByLex(range);
 
-        setLex.forEach(p->logger.info("setLex:"+p));
-        zsetOps.remove("value9","value2");
+        setLex.forEach(p -> logger.info("setLex:" + p));
+        zsetOps.remove("value9", "value2");
 
-        double score=zsetOps.score("value8");
+        double score = zsetOps.score("value8");
 
-        Set<ZSetOperations.TypedTuple<String>> rangeSet=zsetOps.rangeWithScores(1,6);
-        rangeSet.forEach(p->logger.info("rangeSet:"+p.getValue()+"  score:"+p.getScore()));
-        Set<ZSetOperations.TypedTuple<String>> scoreSet=zsetOps.rangeByScoreWithScores(1,6);
-        scoreSet.forEach(p->logger.info("scoreSet:"+p));
-        Set<String> reverseSet=zsetOps.reverseRange(2,8);
-        reverseSet.forEach(p->logger.info("reverseSet:"+p));
+        Set<ZSetOperations.TypedTuple<String>> rangeSet = zsetOps.rangeWithScores(1, 6);
+        rangeSet.forEach(p -> logger.info("rangeSet:" + p.getValue() + "  score:" + p.getScore()));
+        Set<ZSetOperations.TypedTuple<String>> scoreSet = zsetOps.rangeByScoreWithScores(1, 6);
+        scoreSet.forEach(p -> logger.info("scoreSet:" + p));
+        Set<String> reverseSet = zsetOps.reverseRange(2, 8);
+        reverseSet.forEach(p -> logger.info("reverseSet:" + p));
+
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        return map;
+    }
+
+    @GetMapping("/multi")
+    public Map<String, Object> testMulti() {
 
 
 
@@ -177,4 +185,5 @@ public class RedisController {
         map.put("success", true);
         return map;
     }
+
 }
