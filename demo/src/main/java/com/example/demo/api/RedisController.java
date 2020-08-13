@@ -3,16 +3,15 @@ package com.example.demo.api;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisZSetCommands;
 import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.repository.query.RedisOperationChain;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 @RestController
@@ -178,9 +177,56 @@ public class RedisController {
 
     @GetMapping("/multi")
     public Map<String, Object> testMulti() {
+        redisTemplate.opsForValue().set("key1", "value1");
 
+        List<Object> results = (List<Object>) redisTemplate.execute(new SessionCallback<List<Object>>() {
+            @Override
+            public List<Object> execute(RedisOperations operations) throws DataAccessException {
+                // 设置要监控key1
+                operations.watch("key1");
+// 开启事务，在exec命令执行前，全部都只是进入队列
+                operations.multi();
+                operations.opsForValue().set("key2", "value2");
+// operations.opsForValue().increment("key1", 1);// ①
+// 获取值将为null，因为redis只是把命令放入队列
+                Object value2 = operations.opsForValue().get("key2");
+                System.out.println("命令在队列，所以value为null【" + value2 + "】");
+                operations.opsForValue().set("key3", "value3");
+                Object value3 = operations.opsForValue().get("key3");
+                System.out.println("命令在队列，所以value为null【" + value3 + "】");
+// 执行exec命令，将先判别key1是否在监控后被修改过，如果是则不执行事务，否则就执行事务
+                return operations.exec();// ②
+            }
+        });
+        System.out.println(results);
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", true);
+        return map;
+    }
 
+    @GetMapping("/pipeline")
+    public Map<String, Object> testPipeline() {
+
+        long start=System.currentTimeMillis();
+        List list=(List) redisTemplate.executePipelined(new SessionCallback<Object>() {
+            @Override
+            public  Object execute(RedisOperations operations) throws DataAccessException {
+                for (int i = 0; i <=100000; i++) {
+                 operations.opsForValue().set("pipeline_"+i,"value_"+i);
+                 String value=(String)operations.opsForValue().get("pipeline_"+i);
+
+                 if(i==100000){
+                     logger.info("命令只是进入队列 ,所以值为空："+value);
+                 }
+
+                }
+                
+                return null;
+            }
+        });
+        long end=System.currentTimeMillis();
+        logger.info("用时："+(end-start)+"ms");
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         return map;

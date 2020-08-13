@@ -38,6 +38,9 @@ spring:
     serialization:
       write-dates-as-timestamps: true
     date-format: yyyy-MM-dd HH:mm:ss
+  cache:
+    type: redis
+
 
 
 logging:
@@ -46,6 +49,3 @@ logging:
     org:
       sprintframework: warn
 
-springdoc:
-  api-docs:
-    path: /api-doc
