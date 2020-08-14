@@ -1,10 +1,14 @@
 package com.example.demo.config;
 
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.stereotype.Component;
 
-@Component
-public class DataCentreConfig {
+@Configurable
+
+public class MysqlConfig {
     @Value("${database.driverName}")
     private String driverName;
     @Value("${database.username}")

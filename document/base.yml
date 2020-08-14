@@ -8,7 +8,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /nas/data/mysql
-    server: 192.168.2.109
+    server: 192.168.1.131
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -79,7 +79,7 @@ spec:
     - port: 3306
   type: NodePort
   externalIPs:
-    - 192.168.2.109
+    - 192.168.1.131
 
 ---
 
@@ -93,7 +93,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /nas/data/redis
-    server: 192.168.2.109
+    server: 192.168.1.131
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -159,7 +159,7 @@ spec:
     - port: 6379
   type: NodePort
   externalIPs:
-    - 192.168.2.109
+    - 192.168.1.131
 
 ---
 
@@ -174,7 +174,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /nas/data/es
-    server: 192.168.2.109
+    server: 192.168.1.131
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -245,7 +245,7 @@ spec:
     - port: 9200
   type: NodePort
   externalIPs:
-    - 192.168.2.109
+    - 192.168.1.131
 ---
 
 
@@ -259,7 +259,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /nas/data/mongo
-    server: 192.168.2.109
+    server: 192.168.1.131
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -309,7 +309,7 @@ spec:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: root
             - name: MONGO_INITDB_ROOT_PASSWORD
-              value: example
+              value: example2020!@#
           resources:
             limits:
               cpu: "1"
@@ -330,7 +330,7 @@ spec:
     - port: 27017
   type: NodePort
   externalIPs:
-    - 192.168.2.109
+    - 192.168.1.131
 ---
 
 apiVersion: apps/v1
@@ -356,7 +356,7 @@ spec:
             - name: ME_CONFIG_MONGODB_ADMINUSERNAME
               value: root
             - name: ME_CONFIG_MONGODB_ADMINPASSWORD
-              value: example
+              value: example2020!@#
             - name: ME_CONFIG_MONGODB_SERVER
               value: data-mongo
 ---
@@ -371,4 +371,4 @@ spec:
     - port: 8081
   type: NodePort
   externalIPs:
-    - 192.168.2.109
+    - 192.168.1.131

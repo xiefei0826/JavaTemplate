@@ -4,7 +4,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://192.168.2.109:3306/Test?serverTimezone=UTC&characterEncoding=utf-8
+    url: jdbc:mysql://192.168.1.131:3306/Test?serverTimezone=UTC&characterEncoding=utf-8
     username: root
     password: example2020!@#
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,7 +23,7 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   database-platform: org.hibernate.dialect.MySQLDialect
   redis:
-    host: 192.168.2.109
+    host: 192.168.1.131
     port: 6379
     jedis:
       pool:
@@ -40,6 +40,15 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   cache:
     type: redis
+  data:
+    mongodb:
+      host: 192.168.1.131
+      username: root
+      password: example2020!@#
+      port: 27017
+      database: test
+  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
 
 
 
@@ -48,4 +57,3 @@ logging:
     root: info
     org:
       sprintframework: warn
-

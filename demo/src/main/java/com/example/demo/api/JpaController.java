@@ -1,8 +1,8 @@
 package com.example.demo.api;
 
-import com.example.demo.repository.MemoryLibRepository;
-import com.example.demo.model.MemoryLib;
-import com.example.demo.model.StatusType;
+import com.example.demo.repository.mysql.MemoryLibRepository;
+import com.example.demo.model.mysql.MemoryLib;
+import com.example.demo.model.mysql.StatusType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
