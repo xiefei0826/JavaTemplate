@@ -1,0 +1,34 @@
+server:
+  port: 9001
+
+binlog:
+  user: sync
+  password: yixun2020Sync!
+  db: DataCentre
+  host: offline
+  port: 3306
+  logname: binlog.000001
+  post: 4
+  eshost: offline
+  esport: 9200
+#  create user 'sync'@'%' identified with mysql_native_password by 'yixun2020Sync!';
+#  grant all privileges on *.* to 'sync'@'%';
+#  flush privileges;
+#spring:
+#  elasticsearch:
+#    rest:
+#      uris: http://offline:9200
+
+#  datasource:
+#    url: jdbc:mysql://192.168.0.243:3306/TmpDataCentre
+#    username: xf
+#    password: xiefei
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: none
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+
