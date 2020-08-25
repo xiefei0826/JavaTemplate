@@ -1,4 +1,4 @@
-package com.data.binlog.model.mysql;
+package com.data.binlog.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;

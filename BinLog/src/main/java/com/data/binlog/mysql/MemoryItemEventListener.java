@@ -1,8 +1,9 @@
 package com.data.binlog.mysql;
 
 import com.alibaba.fastjson.JSON;
+
 import com.data.binlog.es.EsConfig;
-import com.data.binlog.model.es.EsMemoryItemEntity;
+import com.data.binlog.model.EsMemoryItemEntity;
 import com.github.shyiko.mysql.binlog.BinaryLogClient;
 import com.github.shyiko.mysql.binlog.event.*;
 import org.elasticsearch.action.bulk.BulkRequest;

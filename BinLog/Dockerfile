@@ -1,4 +1,4 @@
-FROM 192.168.2.100/public/maven:3.6.3-slim as build
+FROM maven:3.6.3-slim as build
 WORKDIR /app
 COPY ./ .
 RUN  mvn package -Dmaven.test.skip=true

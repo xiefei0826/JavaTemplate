@@ -1,12 +1,10 @@
-package com.data.binlog.model.es;
+package com.data.binlog.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 
