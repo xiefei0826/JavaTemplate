@@ -9,7 +9,8 @@ public interface UserService {
     void saveUser(User user);
 
     DeleteResult deleteUser(long id);
-    List<User> findUser(String userName,String node,int skip,int limit);
+
+    List<User> findUser(String userName, String node, int skip, int limit);
 
     List<User> updateUser(long id, String userName, String note);
 

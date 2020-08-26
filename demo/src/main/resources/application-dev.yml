@@ -48,7 +48,12 @@ spring:
       port: 27017
       database: test
   autoconfigure:
-#    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+  #    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+  security:
+    user:
+      name: root
+      password: example2020!@#
+
 
 
 

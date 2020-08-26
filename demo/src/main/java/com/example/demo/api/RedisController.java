@@ -208,25 +208,25 @@ public class RedisController {
     @GetMapping("/pipeline")
     public Map<String, Object> testPipeline() {
 
-        long start=System.currentTimeMillis();
-        List list=(List) redisTemplate.executePipelined(new SessionCallback<Object>() {
+        long start = System.currentTimeMillis();
+        List list = (List) redisTemplate.executePipelined(new SessionCallback<Object>() {
             @Override
-            public  Object execute(RedisOperations operations) throws DataAccessException {
-                for (int i = 0; i <=100000; i++) {
-                 operations.opsForValue().set("pipeline_"+i,"value_"+i);
-                 String value=(String)operations.opsForValue().get("pipeline_"+i);
+            public Object execute(RedisOperations operations) throws DataAccessException {
+                for (int i = 0; i <= 100000; i++) {
+                    operations.opsForValue().set("pipeline_" + i, "value_" + i);
+                    String value = (String) operations.opsForValue().get("pipeline_" + i);
 
-                 if(i==100000){
-                     logger.info("命令只是进入队列 ,所以值为空："+value);
-                 }
+                    if (i == 100000) {
+                        logger.info("命令只是进入队列 ,所以值为空：" + value);
+                    }
 
                 }
-                
+
                 return null;
             }
         });
-        long end=System.currentTimeMillis();
-        logger.info("用时："+(end-start)+"ms");
+        long end = System.currentTimeMillis();
+        logger.info("用时：" + (end - start) + "ms");
         Map<String, Object> map = new HashMap<>();
         map.put("success", true);
         return map;
