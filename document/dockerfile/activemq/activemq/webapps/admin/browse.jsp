@@ -95,7 +95,7 @@
 </table>
 
 <div>
-<a href="queueConsumers.jsp?JMSDestination=<c:out value=">View Consumers</a>
+<a href="queueConsumers.jsp?JMSDestination=<c:out value="${requestContext.queueBrowser.JMSDestination}"/>">View Consumers</a>
 </div>
 
 <%@include file="decorators/footer.jsp" %>
