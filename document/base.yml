@@ -444,4 +444,46 @@ spec:
   externalIPs:
     - 192.168.1.131
   type: NodePort
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: data-rabbitmq
+spec:
+  selector:
+    matchLabels:
+      app: data-rabbitmq
+  serviceName: data-rabbitmq
+  template:
+    metadata:
+      labels:
+        app: data-rabbitmq
+    spec:
+      containers:
+        - name: data-rabbitmq
+          image: rabbitmq:3.8.7-alpine
+          ports:
+            - containerPort: 5672
+            - containerPort: 15672
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              value: admin
+            - name: RABBITMQ_DEFAULT_PASS
+              value: admin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-rabbitmq
+spec:
+  selector:
+    app: data-rabbitmq
+  ports:
+    - port: 5672
+      name: tcp
+    - port: 15672
+      name: admin
+  externalIPs:
+    - 192.168.1.131
+  type: NodePort
 
