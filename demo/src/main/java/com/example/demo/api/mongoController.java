@@ -2,6 +2,7 @@ package com.example.demo.api;
 
 import com.example.demo.model.mongo.User;
 import com.example.demo.repository.mongo.UserRepository;
+import com.example.demo.repository.mongo.UserRepositoryImpl;
 import com.example.demo.service.UserService;
 import com.mongodb.client.result.DeleteResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class mongoController {
     private UserService userService = null;
     @Autowired
     private UserRepository userRepository=null;
+
 
     @PostMapping("/save")
     public User saveUser(@RequestBody User user) {
@@ -51,4 +53,9 @@ public class mongoController {
 
         return userRepository.findByUserNameLike(userName);
     }
+    @GetMapping("/test")
+    public User  test(long id,String userName){
+        return userRepository.findUserByIdOrUserName(id,userName);
+    }
+
 }
