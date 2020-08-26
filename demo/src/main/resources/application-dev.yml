@@ -66,7 +66,16 @@ spring:
     pub-sub-domain: true
     template:
       default-destination: activemq.default.destination
-
+  rabbitmq:
+    host: 192.168.1.131
+    port: 5672
+    username: admin
+    password: admin
+    publisher-confirm-type: simple
+rabbitmq:
+  queue:
+    msg: spring-boot-queue-msg
+    user: spring-boot-queue-user
 
 logging:
   level:

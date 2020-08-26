@@ -461,7 +461,7 @@ spec:
     spec:
       containers:
         - name: data-rabbitmq
-          image: rabbitmq:3.8.7-alpine
+          image: rabbitmq:3.8.7-management-alpine
           ports:
             - containerPort: 5672
             - containerPort: 15672

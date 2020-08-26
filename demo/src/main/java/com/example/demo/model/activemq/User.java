@@ -36,4 +36,13 @@ public class User implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }
