@@ -79,6 +79,8 @@ spring:
   devtools:
     restart:
       enabled: true
+  application:
+    name: product
 rabbitmq:
   queue:
     msg: spring-boot-queue-msg
@@ -97,4 +99,7 @@ management:
   endpoint:
     health:
       show-details: always
-
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.1.130:7001/eureka/
