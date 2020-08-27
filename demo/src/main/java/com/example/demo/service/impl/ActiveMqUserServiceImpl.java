@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.activemq.User;
+import com.example.demo.model.mq.User;
 import com.example.demo.service.ActiveMqUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;

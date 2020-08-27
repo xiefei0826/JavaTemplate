@@ -17,6 +17,7 @@ public class ActiveMqServiceImpl implements ActiveMqService {
     @Override
     public void sendMsg(String message) {
         logger.info("send message:" + message);
+        logger.info("test");
         jmsTemplate.convertAndSend(message);
 
     }

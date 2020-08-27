@@ -1,4 +1,4 @@
-package com.example.demo.model.activemq;
+package com.example.demo.model.mq;
 
 import java.io.Serializable;
 

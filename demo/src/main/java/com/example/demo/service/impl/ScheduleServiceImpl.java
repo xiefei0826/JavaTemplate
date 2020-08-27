@@ -37,6 +37,6 @@ public class ScheduleServiceImpl {
     @Async
     public void  job4(){
         logger.info("job4:"+Thread.currentThread().getName()+" ----- count:"+count4);
-        count3++;
+        count4++;
     }
 }

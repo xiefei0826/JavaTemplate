@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 
-import com.example.demo.model.activemq.User;
+import com.example.demo.model.mq.User;
 
 public interface ActiveMqUserService {
     void sendMsg(User user);

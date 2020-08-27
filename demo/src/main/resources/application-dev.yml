@@ -14,6 +14,10 @@ spring:
       max-wait-millis: 10000
       initial-size: 5
       default-transaction-isolation: 2
+      validation-query: select 1
+      test-while-idle: true
+    type: org.apache.commons.dbcp2.BasicDataSource
+
 
   jpa:
     show-sql: true
@@ -72,6 +76,9 @@ spring:
     username: admin
     password: admin
     publisher-confirm-type: simple
+  devtools:
+    restart:
+      enabled: true
 rabbitmq:
   queue:
     msg: spring-boot-queue-msg
@@ -82,3 +89,12 @@ logging:
     root: info
     org:
       sprintframework: warn
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+

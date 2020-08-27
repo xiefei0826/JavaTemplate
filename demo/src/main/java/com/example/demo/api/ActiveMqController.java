@@ -1,6 +1,6 @@
 package com.example.demo.api;
 
-import com.example.demo.model.activemq.User;
+import com.example.demo.model.mq.User;
 import com.example.demo.service.ActiveMqService;
 import com.example.demo.service.ActiveMqUserService;
 import org.springframework.beans.factory.annotation.Autowired;

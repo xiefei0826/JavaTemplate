@@ -1,6 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.model.activemq.User;
+import com.example.demo.model.mq.User;
 import com.example.demo.service.RabbitMqService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
