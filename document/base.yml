@@ -8,7 +8,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /nas/data/mysql
-    server: 192.168.1.131
+    server: dev
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -93,7 +93,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /nas/data/redis
-    server: 192.168.1.131
+    server: dev
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -133,7 +133,7 @@ spec:
             claimName: data-redis-pvc
       containers:
         - name: redis
-          image: selfredis:6.0.6
+          image: redis:latest
           ports:
             - containerPort: 6379
           volumeMounts:
@@ -174,7 +174,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /nas/data/es
-    server: 192.168.1.131
+    server: dev
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -259,7 +259,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /nas/data/mongo
-    server: 192.168.1.131
+    server: dev
   accessModes:
     - ReadWriteOnce
     - ReadOnlyMany
@@ -386,7 +386,7 @@ spec:
     - ReadWriteOnce
   nfs:
     path: /nas/data/activemq
-    server: 192.168.1.131
+    server: dev
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -421,7 +421,7 @@ spec:
             claimName: data-activemq-pvc
       containers:
         - name: data-activemq
-          image: activemq:0.0.1
+          image: activemq:latest
           volumeMounts:
             - mountPath: /app/data
               name: data-activemq
